@@ -29,6 +29,7 @@ module.exports = function(csv, callback) {
                 }
                 listObject[LIST_STRUCTURE[p]] = lineElements[p].trim();
             }
+            listObject.id = i;
             original.push(listObject);
         }
         items = {
