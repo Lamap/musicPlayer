@@ -4,7 +4,6 @@ var TIMEOUT = 1000;
 
 module.exports = function (list) {
     var plr = null;
-    var isPlaying = false;
     function play() {
         if(plr) {
             //console.plr.getQueue();
@@ -14,7 +13,6 @@ module.exports = function (list) {
             delete plr;
         }
         setTimeout(function() {
-            isPlaying = true;
             var mp3 = MP3_DIR + '/' + list.toPlay[0].file + '.mp3';
             plr = new Player();
             plr.add(mp3);
@@ -44,8 +42,13 @@ module.exports = function (list) {
     }
 
     function pause() {
-        isPlaying = !isPlaying;
-        plr.pause();
+        var isPlaying = plr.nowPlaying();
+        console.log(plr.isPlaying());
+        if (plr.isPlaying()) {
+            plr.pause();
+            return;
+        } 
+        plr.play();
     }
 
     function songEnded() {

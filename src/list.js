@@ -32,11 +32,22 @@ module.exports = function(csv, callback) {
             listObject.id = i;
             original.push(listObject);
         }
+        addYouTubeId(original);
         items = {
             played: [],
             toPlay: JSON.parse(JSON.stringify(original))
         };
         callback(null, items);
+    }
+
+    function addYouTubeId(list) {
+        list = list.map(function(item) {
+            if (item.youtube) {
+                item.id = item.youtube.split("?v=")[1];
+                return item;
+            }
+        });
+        console.log(list);
     }
 
     return {
